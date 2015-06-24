@@ -1,0 +1,1 @@
+# Nancy.Metadata.Swagger
