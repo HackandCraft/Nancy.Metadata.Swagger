@@ -1,28 +1,23 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# NuGet packages
+packages/*
 
-# Precompiled Headers
-*.gch
-*.pch
+# Allow NuGet util to run on TeamCity
+!.nuget/*
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
-# Fortran module files
-*.mod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nancy.Metadata.Swagger", "Nancy.Metadata.Swagger\Nancy.Metadata.Swagger.csproj", "{3307A948-A2D7-4260-A644-720364E2136D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nancy.Metadata.Swagger.DemoApplication", "Nancy.Metadata.Swagger.DemoApplication\Nancy.Metadata.Swagger.DemoApplication.csproj", "{A537003B-2A76-4A0D-8F08-7D66EC17E2F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3307A948-A2D7-4260-A644-720364E2136D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3307A948-A2D7-4260-A644-720364E2136D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3307A948-A2D7-4260-A644-720364E2136D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3307A948-A2D7-4260-A644-720364E2136D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A537003B-2A76-4A0D-8F08-7D66EC17E2F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A537003B-2A76-4A0D-8F08-7D66EC17E2F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A537003B-2A76-4A0D-8F08-7D66EC17E2F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A537003B-2A76-4A0D-8F08-7D66EC17E2F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
