@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Nancy.Metadata.Swagger.Model;
 using Newtonsoft.Json.Schema;
+using Newtonsoft.Json.Serialization;
 
 namespace Nancy.Metadata.Swagger.Fluent
 {
@@ -92,7 +94,16 @@ namespace Nancy.Metadata.Swagger.Fluent
         private static JSchema GetSchema(Type type)
         {
             JSchemaGenerator generator = new JSchemaGenerator();
-            return generator.Generate(type);
+
+            JSchema schema =  generator.Generate(type);
+
+            // I didn't find the way how to disallow JSchemaGenerator to use nullable types, swagger doesn't work with them
+
+            string tmp = schema.ToString();
+            string s = @"\""type\"":[\s\n\r]*\[[\s\n\r]*\""(\w+)\"",[\s\n\r]*\""null\""[\s\n\r]*\]";
+            tmp = Regex.Replace(tmp, s, "\"type\": \"$1\"");
+
+            return JSchema.Parse(tmp);
         }
     }
 }
