@@ -17,7 +17,13 @@ namespace Nancy.Metadata.Swagger.Modules
         private readonly string apiBaseUrl;
         private readonly string[] schemes;
 
-        protected SwaggerDocsModuleBase(IRouteCacheProvider routeCacheProvider, string docsLocation = "/api/docs", string title = "API documentation", string apiVersion = "1.0", string host = "localhost:5000", string apiBaseUrl = "/", params string[] schemes)
+        protected SwaggerDocsModuleBase(IRouteCacheProvider routeCacheProvider, 
+            string docsLocation = "/api/docs", 
+            string title = "API documentation",
+            string apiVersion = "1.0", 
+            string host = "localhost:5000",
+            string apiBaseUrl = "/", 
+            params string[] schemes)
             : base(docsLocation)
         {
             this.routeCacheProvider = routeCacheProvider;

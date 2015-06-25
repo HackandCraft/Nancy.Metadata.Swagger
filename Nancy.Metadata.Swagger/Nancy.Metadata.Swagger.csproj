@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\LicenseInstsaller.cs" />
     <Compile Include="Core\SwaggerRouteMetadata.cs" />
     <Compile Include="Fluent\SwaggerEndpointInfoExtensions.cs" />
     <Compile Include="Fluent\SwaggerRouteMetadataExtensions.cs" />

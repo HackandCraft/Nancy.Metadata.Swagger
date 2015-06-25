@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Nancy.Metadata.Swagger.Model;
 using Newtonsoft.Json.Schema;
-using Newtonsoft.Json.Serialization;
 
 namespace Nancy.Metadata.Swagger.Fluent
 {
     public static class SwaggerEndpointInfoExtensions
     {
-        public static SwaggerEndpointInfo WithModelResponse(this SwaggerEndpointInfo endpointInfo, string statusCode, Type modelType, string description = null)
+        public static SwaggerEndpointInfo WithResponseModel(this SwaggerEndpointInfo endpointInfo, string statusCode, Type modelType, string description = null)
         {
             if (endpointInfo.ResponseInfos == null)
             {
@@ -70,6 +69,23 @@ namespace Nancy.Metadata.Swagger.Fluent
                 Name = name,
                 Schema = GetSchema(requestType)
             });
+
+            return endpointInfo;
+        }
+
+        public static SwaggerEndpointInfo WithDescription(this SwaggerEndpointInfo endpointInfo, string description, params string[] tags)
+        {
+            if (endpointInfo.Tags == null)
+            {
+                if (tags.Length == 0)
+                {
+                    tags = new[] {"default"};
+                }
+
+                endpointInfo.Tags = tags;
+            }
+
+            endpointInfo.Description = description;
 
             return endpointInfo;
         }
