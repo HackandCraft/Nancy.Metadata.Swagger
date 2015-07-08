@@ -21,3 +21,6 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+
+# build results
+.build/

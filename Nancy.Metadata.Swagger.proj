@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         InitialTargets="Clean;CreateDirStructure">
+  <PropertyGroup>
+    <!-- can be passed with parameter /p:Version=x.x.x.x -->
+    <Version>1.0.0.0</Version>
+    
+    <BuildDir>.build</BuildDir>
+    
+    <!-- tools -->
+    <NugetCmd>.nuget\NuGet.exe</NugetCmd>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+  </PropertyGroup>
+
+  <Target Name="Clean">
+    <Message Text="Cleaning up build" />
+    <ItemGroup>
+      <FilesForDeletion Include="$(BuildDir)/**/*.*" />
+    </ItemGroup>
+    <Delete Files="@(FilesForDeletion)" Condition="Exists('$(BuildDir)')" />
+  </Target>
+
+  <Target Name="CreateDirStructure">
+    <MakeDir Directories="$(BuildDir)" Condition="!Exists('$(BuildDir)')" />
+    <MakeDir Directories="$(BuildDir)\.artifacts" Condition="!Exists('$(BuildDir)\artifacts')" />
+  </Target>
+
+  <!-- uveAdaptor part -->
+  
+  <Target Name="BuildLib">
+    <MSBuild Projects="Nancy.Metadata.Swagger\Nancy.Metadata.Swagger.csproj" Targets="Build" Properties="Configuration=$(Configuration)" />
+  </Target>
+
+  <Target Name="PackLib">
+    <Message Text="Creating Nancy.Metadata.Swagger nuget package" />
+    <ItemGroup>
+      <LibFiles Include="Nancy.Metadata.Swagger/bin/$(Configuration)/Nancy.Metadata.Swagger.dll;Nancy.Metadata.Swagger.nuspec" />
+    </ItemGroup>
+    <Copy SourceFiles="@(LibFiles)" DestinationFolder="$(BuildDir)\Nancy.Metadata.Swagger" />
+    <Exec Command="..\..\$(NugetCmd) pack Nancy.Metadata.Swagger.nuspec -Version $(Version) -OutputDirectory ..\.artifacts" WorkingDirectory="$(BuildDir)\Nancy.Metadata.Swagger" />
+    <RemoveDir Directories="$(BuildDir)\Nancy.Metadata.Swagger" />
+  </Target>
+  
+  <Target Name="Build">
+    <CallTarget Targets="BuildLib" />
+  </Target>
+
+  <Target Name="Release" Condition=" '$(Configuration)' == 'Release' " DependsOnTargets="Build">
+    <CallTarget Targets="Build" />
+    <CallTarget Targets="PackLib" />
+  </Target>
+</Project>
