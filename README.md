@@ -26,7 +26,7 @@ Example module:
         }
     }
 
-Example metadata module (for ``%modulename%Module`` it should be name ``%modulename%MetadataModule):
+Example metadata module (for ``%modulename%Module`` it should be name ``%modulename%MetadataModule``):
 
 	public class RootMetadataModule : MetadataModule<SwaggerRouteMetadata>
     {
