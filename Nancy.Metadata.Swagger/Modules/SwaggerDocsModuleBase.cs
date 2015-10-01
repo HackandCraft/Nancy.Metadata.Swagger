@@ -72,7 +72,12 @@ namespace Nancy.Metadata.Swagger.Modules
                     continue;
                 }
 
-                string path = m.Path.Replace(swaggerSpecification.BasePath, "");
+                string path = m.Path;
+                
+                if (!string.IsNullOrEmpty(swaggerSpecification.BasePath) && swaggerSpecification.BasePath != "/")
+                {
+                    path = path.Replace(swaggerSpecification.BasePath, "");
+                }
 
                 if (!endpoints.ContainsKey(path))
                 {
