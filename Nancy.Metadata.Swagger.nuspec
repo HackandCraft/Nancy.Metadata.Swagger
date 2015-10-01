@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Nancy.Metadata.Swagger</id>
+    <version>1.0.2</version>
+    <authors>Anton Kudryavtsev</authors>
+    <owners>Hack &amp; Craft</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+        This assembly allows you to easily create Nancy metadata modules that will generate documentation in swagger format
+    </description>
+    <projectUrl>https://github.com/HackandCraft/Nancy.Metadata.Swagger</projectUrl>
+    <releaseNotes>
+        * fixed basepath replacement bug
+    </releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>nancy swagger metadata</tags>
+    <dependencies>
+        <dependency id="Nancy" version="1.2.0" />
+        <dependency id="Newtonsoft.Json" version="7.0.1" />
+        <dependency id="Newtonsoft.Json.Schema" version="1.0.9" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Nancy.Metadata.Swagger.dll" target="lib\net45\Nancy.Metadata.Swagger.dll" />
+  </files>
+</package>
