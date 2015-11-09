@@ -9,7 +9,7 @@ namespace Nancy.Metadata.Swagger.Fluent
         public static SwaggerRouteMetadata With(this SwaggerRouteMetadata routeMetadata,
             Func<SwaggerEndpointInfo, SwaggerEndpointInfo> info)
         {
-            routeMetadata.Info = info(new SwaggerEndpointInfo());
+            routeMetadata.Info = info(routeMetadata.Info ?? new SwaggerEndpointInfo());
 
             return routeMetadata;
         }
