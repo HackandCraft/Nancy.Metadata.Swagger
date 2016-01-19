@@ -26,7 +26,8 @@ Example module:
         }
     }
 
-Example metadata module (for ``%modulename%Module`` it should be name ``%modulename%MetadataModule``):
+Example metadata module (for ``%modulename%Module`` it should be named ``%modulename%MetadataModule``):
+**IMPORTANT: Metadata module file should be placed in the same folder (namespace) with module**
 
 	public class RootMetadataModule : MetadataModule<SwaggerRouteMetadata>
     {
@@ -75,7 +76,8 @@ Feel free to fork this library, create issues, pull requests and send me any fee
 
 ## Things to be done
 
-This is pre release version without all requirement stuff, here is the list of things that I really want to be done:
+There are lots of things that I want to implement here, but due to lack of time it's almost impossible. 
+However, it would be nice to have:
 
 1. Use free alternative for Json.NET schema or create our own
 1. Use AOP way, so you'll be able to use attributes to describe your methods
@@ -83,3 +85,4 @@ This is pre release version without all requirement stuff, here is the list of t
 1. Add swagger UI to the package
 1. Make it more simplier
 
+If you have any ideas, please feel free to contact me
