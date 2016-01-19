@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Nancy.Metadata.Swagger</id>
-    <version>1.1.0-pre</version>
+    <version>1.1.1-pre</version>
     <authors>Anton Kudryavtsev</authors>
     <owners>Hack &amp; Craft</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -22,7 +22,7 @@
     <tags>nancy swagger metadata</tags>
     <dependencies>
         <dependency id="Nancy" version="1.2.0" />
-        <dependency id="Nancy.Metadata.Swagger" version="1.2.0" />
+        <dependency id="Nancy.Metadata.Modules" version="1.2.0" />
         <dependency id="Newtonsoft.Json" version="8.0.2" />
         <dependency id="Newtonsoft.Json.Schema" version="2.0.2" />
     </dependencies>
