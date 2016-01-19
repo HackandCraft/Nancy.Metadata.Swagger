@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Nancy.Metadata.Swagger</id>
-    <version>1.0.2</version>
+    <version>1.0.3-pre</version>
     <authors>Anton Kudryavtsev</authors>
     <owners>Hack &amp; Craft</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -11,7 +11,12 @@
     </description>
     <projectUrl>https://github.com/HackandCraft/Nancy.Metadata.Swagger</projectUrl>
     <releaseNotes>
-        * fixed basepath replacement bug
+            * Json and Json.Schema packages updated
+            * Nancy.Metadata.Swagger package added to dependencies list
+            * Description argument added to .WithDefaultResponse() method (fixes validation warning)
+            * Method .WithSummary() added
+            * Readme updated
+            * Demo app updated
     </releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>nancy swagger metadata</tags>
