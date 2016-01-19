@@ -95,6 +95,12 @@ namespace Nancy.Metadata.Swagger.Fluent
             return endpointInfo;
         }
 
+        public static SwaggerEndpointInfo WithSummary(this SwaggerEndpointInfo endpointInfo, string summary)
+        {
+            endpointInfo.Summary = summary;
+            return endpointInfo;
+        }
+
         private static SwaggerResponseInfo GenerateResponseInfo(string description, Type responseType)
         {
             return new SwaggerResponseInfo
