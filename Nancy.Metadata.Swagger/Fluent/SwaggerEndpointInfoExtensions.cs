@@ -20,9 +20,9 @@ namespace Nancy.Metadata.Swagger.Fluent
             return endpointInfo;
         }
 
-        public static SwaggerEndpointInfo WithDefaultResponse(this SwaggerEndpointInfo endpointInfo, Type responseType)
+        public static SwaggerEndpointInfo WithDefaultResponse(this SwaggerEndpointInfo endpointInfo, Type responseType, string description = "Default response")
         {
-            return endpointInfo.WithResponseModel("200", responseType);
+            return endpointInfo.WithResponseModel("200", responseType, description);
         }
 
         public static SwaggerEndpointInfo WithResponse(this SwaggerEndpointInfo endpointInfo, string statusCode, string description)
