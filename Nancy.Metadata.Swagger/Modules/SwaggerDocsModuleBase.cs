@@ -3,6 +3,7 @@ using Nancy.Metadata.Swagger.Core;
 using Nancy.Metadata.Swagger.Model;
 using Nancy.Routing;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Schema;
 
 namespace Nancy.Metadata.Swagger.Modules
 {
@@ -85,6 +86,22 @@ namespace Nancy.Metadata.Swagger.Modules
                 }
 
                 endpoints[path].Add(m.Method, m.Info);
+
+                // add definitions
+                if (swaggerSpecification.ModelDefinitions == null)
+                {
+                    swaggerSpecification.ModelDefinitions = new Dictionary<string, JSchema>();
+                }
+
+                foreach (string key in SchemaCache.Cache.Keys)
+                {
+                    if (swaggerSpecification.ModelDefinitions.ContainsKey(key))
+                    {
+                        continue;
+                    }
+
+                    swaggerSpecification.ModelDefinitions.Add(key, SchemaCache.Cache[key]);
+                }
             }
 
             swaggerSpecification.PathInfos = endpoints;

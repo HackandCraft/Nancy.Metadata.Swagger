@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\NestedRequestModel.cs" />
     <Compile Include="Model\SimpleRequestModel.cs" />
     <Compile Include="Model\SimpleResponseModel.cs" />
     <Compile Include="Modules\DocsModule.cs" />

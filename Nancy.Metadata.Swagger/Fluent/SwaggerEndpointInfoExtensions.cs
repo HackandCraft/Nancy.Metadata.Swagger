@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Nancy.Metadata.Swagger.Core;
 using Nancy.Metadata.Swagger.Model;
 using Newtonsoft.Json.Schema;
+using Newtonsoft.Json.Schema.Generation;
 
 namespace Nancy.Metadata.Swagger.Fluent
 {
@@ -72,7 +74,10 @@ namespace Nancy.Metadata.Swagger.Fluent
                 Description = description,
                 In = loc,
                 Name = name,
-                Schema = GetSchema(requestType)
+                Schema = new SchemaRef
+                {
+                    Ref = "#/definitions/" + GetOrSaveSchemaReference(requestType)
+                }
             });
 
             return endpointInfo;
@@ -105,7 +110,10 @@ namespace Nancy.Metadata.Swagger.Fluent
         {
             return new SwaggerResponseInfo
             {
-                Schema = GetSchema(responseType),
+                Schema = new SchemaRef
+                {
+                    Ref = "#/definitions/" + GetOrSaveSchemaReference(responseType)
+                },
                 Description = description
             };
         }
@@ -118,9 +126,20 @@ namespace Nancy.Metadata.Swagger.Fluent
             };
         }
 
-        private static JSchema GetSchema(Type type)
+        private static string GetOrSaveSchemaReference(Type type)
         {
-            JSchemaGenerator generator = new JSchemaGenerator();
+            string key = type.FullName;
+
+            if (SchemaCache.Cache.ContainsKey(key))
+            {
+                return key;
+            }
+
+            JSchemaGenerator generator = new JSchemaGenerator
+            {
+                SchemaIdGenerationHandling = SchemaIdGenerationHandling.FullTypeName,
+                SchemaReferenceHandling = SchemaReferenceHandling.None
+            };
 
             JSchema schema =  generator.Generate(type);
 
@@ -130,7 +149,9 @@ namespace Nancy.Metadata.Swagger.Fluent
             string s = @"\""type\"":[\s\n\r]*\[[\s\n\r]*\""(\w+)\"",[\s\n\r]*\""null\""[\s\n\r]*\]";
             tmp = Regex.Replace(tmp, s, "\"type\": \"$1\"");
 
-            return JSchema.Parse(tmp);
+            SchemaCache.Cache[key] = JSchema.Parse(tmp);
+
+            return key;
         }
     }
 }
