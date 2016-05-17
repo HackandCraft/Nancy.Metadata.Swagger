@@ -3,7 +3,6 @@ using Nancy.Metadata.Swagger.Core;
 using Nancy.Metadata.Swagger.Model;
 using Nancy.Routing;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Schema;
 
 namespace Nancy.Metadata.Swagger.Modules
 {
@@ -18,12 +17,12 @@ namespace Nancy.Metadata.Swagger.Modules
         private readonly string apiBaseUrl;
         private readonly string[] schemes;
 
-        protected SwaggerDocsModuleBase(IRouteCacheProvider routeCacheProvider, 
-            string docsLocation = "/api/docs", 
+        protected SwaggerDocsModuleBase(IRouteCacheProvider routeCacheProvider,
+            string docsLocation = "/api/docs",
             string title = "API documentation",
-            string apiVersion = "1.0", 
+            string apiVersion = "1.0",
             string host = "localhost:5000",
-            string apiBaseUrl = "/", 
+            string apiBaseUrl = "/",
             params string[] schemes)
             : base(docsLocation)
         {
@@ -74,7 +73,7 @@ namespace Nancy.Metadata.Swagger.Modules
                 }
 
                 string path = m.Path;
-                
+
                 if (!string.IsNullOrEmpty(swaggerSpecification.BasePath) && swaggerSpecification.BasePath != "/")
                 {
                     path = path.Replace(swaggerSpecification.BasePath, "");
@@ -90,7 +89,7 @@ namespace Nancy.Metadata.Swagger.Modules
                 // add definitions
                 if (swaggerSpecification.ModelDefinitions == null)
                 {
-                    swaggerSpecification.ModelDefinitions = new Dictionary<string, JSchema>();
+                    swaggerSpecification.ModelDefinitions = new Dictionary<string, object>();
                 }
 
                 foreach (string key in SchemaCache.Cache.Keys)

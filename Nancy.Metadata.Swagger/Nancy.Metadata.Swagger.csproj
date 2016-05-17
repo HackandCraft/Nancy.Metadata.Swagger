@@ -58,6 +58,9 @@
     <Compile Include="Core\LicenseInstsaller.cs" />
     <Compile Include="Core\SchemaCache.cs" />
     <Compile Include="Core\SwaggerRouteMetadata.cs" />
+    <Compile Include="SchemaGeneration\ISchemaGenerationStrategy.cs" />
+    <Compile Include="SchemaGeneration\JsonNetSchemaGenerationStrategy.cs" />
+    <Compile Include="SchemaGeneration\SchemaGenerator.cs" />
     <Compile Include="Fluent\SwaggerEndpointInfoExtensions.cs" />
     <Compile Include="Fluent\SwaggerRouteMetadataExtensions.cs" />
     <Compile Include="Model\SwaggerApiInfo.cs" />
