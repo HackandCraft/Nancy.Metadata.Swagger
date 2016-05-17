@@ -2,6 +2,11 @@
 {
     public static class SchemaGenerator
     {
-        public static ISchemaGenerationStrategy Strategy = new JsonNetSchemaGenerationStrategy();
+        internal static ISchemaGenerationStrategy Strategy = new JsonNetSchemaGenerationStrategy();
+
+        public static void Use(ISchemaGenerationStrategy strategy)
+        {
+            Strategy = strategy;
+        }
     }
 }

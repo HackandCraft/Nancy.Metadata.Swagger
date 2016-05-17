@@ -7,6 +7,8 @@ namespace Nancy.Metadata.Swagger.DemoApplication
     {
         static void Main()
         {
+            SchemaGeneration.SchemaGenerator.Use(new NJsonSchemaGenerationStrategy());
+
             string url = "http://localhost:5000";
 
             NancyHost host = new NancyHost(new Uri(url));
