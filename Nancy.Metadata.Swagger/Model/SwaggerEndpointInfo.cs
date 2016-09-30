@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Nancy.Metadata.Swagger.Model
 {
     public class SwaggerEndpointInfo
     {
+        public SwaggerEndpointInfo(string name)
+        {
+            OperationId = name;
+        }
+
         [JsonProperty("tags")]
         public string[] Tags { get; set; }
 
@@ -19,5 +24,11 @@ namespace Nancy.Metadata.Swagger.Model
 
         [JsonProperty("parameters")]
         public List<SwaggerRequestParameter> RequestParameters { get; set; }
+
+        [JsonProperty("operationId")]
+        public string OperationId { get; set; }
+
+        [JsonProperty("produces")]
+        public string[] ContentType { get; set; }
     }
 }

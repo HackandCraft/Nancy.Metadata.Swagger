@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using Nancy.Metadata.Swagger.Core;
+﻿using Nancy.Metadata.Swagger.Core;
 using Nancy.Metadata.Swagger.Model;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Schema.Generation;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Nancy.Metadata.Swagger.Fluent
 {
@@ -83,16 +83,26 @@ namespace Nancy.Metadata.Swagger.Fluent
             return endpointInfo;
         }
 
-        public static SwaggerEndpointInfo WithDescription(this SwaggerEndpointInfo endpointInfo, string description, params string[] tags)
+        public static SwaggerEndpointInfo WithDescription(this SwaggerEndpointInfo endpointInfo, string description, string[] contentType = null, params string[] tags)
         {
             if (endpointInfo.Tags == null)
             {
                 if (tags.Length == 0)
                 {
-                    tags = new[] {"default"};
+                    tags = new[] { "default" };
                 }
 
                 endpointInfo.Tags = tags;
+            }
+
+            if (endpointInfo.ContentType == null)
+            {
+                if (contentType == null)
+                {
+                    contentType = new[] { "application/json" };
+                }
+
+                endpointInfo.ContentType = contentType;
             }
 
             endpointInfo.Description = description;
@@ -128,7 +138,7 @@ namespace Nancy.Metadata.Swagger.Fluent
 
         private static string GetOrSaveSchemaReference(Type type)
         {
-            string key = type.FullName;
+            string key = type.Name;
 
             if (SchemaCache.Cache.ContainsKey(key))
             {
@@ -141,7 +151,7 @@ namespace Nancy.Metadata.Swagger.Fluent
                 SchemaReferenceHandling = SchemaReferenceHandling.None
             };
 
-            JSchema schema =  generator.Generate(type);
+            JSchema schema = generator.Generate(type);
 
             // I didn't find the way how to disallow JSchemaGenerator to use nullable types, swagger doesn't work with them
 
