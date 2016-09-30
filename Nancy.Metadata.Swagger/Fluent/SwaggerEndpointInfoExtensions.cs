@@ -137,7 +137,7 @@ namespace Nancy.Metadata.Swagger.Fluent
 
             JSchemaGenerator generator = new JSchemaGenerator
             {
-                SchemaIdGenerationHandling = SchemaIdGenerationHandling.FullTypeName,
+                SchemaIdGenerationHandling = SchemaIdGenerationHandling.None,
                 SchemaReferenceHandling = SchemaReferenceHandling.None
             };
 
