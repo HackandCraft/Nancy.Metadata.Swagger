@@ -134,13 +134,12 @@ namespace Nancy.Metadata.Swagger.Fluent
                 return key;
             }
             
-            var schema = NJsonSchema.JsonSchema4.FromType(type, new NJsonSchema.Generation.JsonSchemaGeneratorSettings { });
-
-            // I didn't find the way how to disallow JSchemaGenerator to use nullable types, swagger doesn't work with them
-            //string tmp = schema.ToJson();
-            //string s = @"\""type\"":[\s\n\r]*\[[\s\n\r]*\""(\w+)\"",[\s\n\r]*\""null\""[\s\n\r]*\]";
-            //tmp = Regex.Replace(tmp, s, "\"type\": \"$1\"");
-
+            var schema = NJsonSchema.JsonSchema4.FromType(type, new NJsonSchema.Generation.JsonSchemaGeneratorSettings{
+                NullHandling = NJsonSchema.NullHandling.Swagger,
+                TypeNameGenerator = new TypeNameGenerator(),
+                SchemaNameGenerator = new TypeNameGenerator()
+            });
+            
             SchemaCache.Cache[key] = schema;
 
             return key;

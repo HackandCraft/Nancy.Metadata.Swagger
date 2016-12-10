@@ -24,7 +24,7 @@ namespace Nancy.Metadata.Swagger.Model
         [JsonProperty("paths")]
         public Dictionary<string, Dictionary<string, SwaggerEndpointInfo>> PathInfos { get; set; }
 
-        [JsonProperty("definitions")]
+        [JsonProperty("definitions"), JsonConverter(typeof(Core.CustomJsonConverter))]
         public Dictionary<string, NJsonSchema.JsonSchema4> ModelDefinitions { get; set; }
     }
 }
