@@ -14,6 +14,9 @@ namespace Nancy.Metadata.Swagger.Model
         [JsonProperty("description")]
         public string Description { get; set; }
 
+        [JsonProperty("operationId")]
+        public string MethodName { get; set; }
+
         [JsonProperty("responses")]
         public Dictionary<string, SwaggerResponseInfo> ResponseInfos { get; set; }
 
