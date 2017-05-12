@@ -90,7 +90,7 @@ namespace Nancy.Metadata.Swagger.Modules
                 // add definitions
                 if (swaggerSpecification.ModelDefinitions == null)
                 {
-                    swaggerSpecification.ModelDefinitions = new Dictionary<string, JSchema>();
+                    swaggerSpecification.ModelDefinitions = new Dictionary<string, string>();
                 }
 
                 foreach (string key in SchemaCache.Cache.Keys)
