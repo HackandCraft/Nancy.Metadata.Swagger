@@ -5,16 +5,16 @@ namespace Nancy.Metadata.Swagger.Core
 {
     public class NewtonsoftJsonSchemaGeneratorAdapter : IJsonSchemaGenerator
     {
-        private readonly JSchemaGenerator jSchemaGenerator;
+        private readonly JSchemaGenerator jsonSchemaGenerator;
 
-        public NewtonsoftJsonSchemaGeneratorAdapter(JSchemaGenerator jSchemaGenerator)
+        public NewtonsoftJsonSchemaGeneratorAdapter(JSchemaGenerator jsonSchemaGenerator)
         {
-            this.jSchemaGenerator = jSchemaGenerator;
+            this.jsonSchemaGenerator = jsonSchemaGenerator;
         }
 
         public string GenerateSchema(Type modelType)
         {
-            return jSchemaGenerator.Generate(modelType).ToString();
+            return jsonSchemaGenerator.Generate(modelType).ToString();
         }
     }
 }

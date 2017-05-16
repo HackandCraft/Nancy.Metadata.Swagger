@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Nancy.Metadata.Swagger.Core;
 using Nancy.Metadata.Swagger.Model;
 using Newtonsoft.Json.Schema.Generation;
+using Newtonsoft.Json.Linq;
 
 namespace Nancy.Metadata.Swagger.Fluent
 {
@@ -192,8 +193,7 @@ namespace Nancy.Metadata.Swagger.Fluent
             // I didn't find the way how to disallow JSchemaGenerator to use nullable types, swagger doesn't work with them
             var replaceNullableTypesPattern = @"\""type\"":[\s\n\r]*\[[\s\n\r]*\""(\w+)\"",[\s\n\r]*\""null\""[\s\n\r]*\]";
             var fixedSchema = Regex.Replace(schema, replaceNullableTypesPattern, "\"type\": \"$1\"");
-
-            SchemaCache.Cache[key] = fixedSchema;
+            SchemaCache.Cache[key] = JObject.Parse(fixedSchema);
 
             return key;
         }
