@@ -111,7 +111,7 @@ namespace Nancy.Metadata.Swagger.Fluent
                 Name = name,
                 Schema = new SchemaRef
                 {
-                    Ref = "#/definitions/" + GetOrSaveSchemaReference(requestType)
+                    Ref = $"#/{SwaggerConstants.ModelDefinitionsKey}/{GetOrSaveSchemaReference(requestType)}"
                 }
             });
 
@@ -181,7 +181,7 @@ namespace Nancy.Metadata.Swagger.Fluent
 
         private string GetOrSaveSchemaReference(Type type)
         {
-            string key = type.FullName;
+            var key = type.FullName;
 
             if (SchemaCache.Cache.ContainsKey(key))
             {
@@ -192,10 +192,38 @@ namespace Nancy.Metadata.Swagger.Fluent
 
             // I didn't find the way how to disallow JSchemaGenerator to use nullable types, swagger doesn't work with them
             var replaceNullableTypesPattern = @"\""type\"":[\s\n\r]*\[[\s\n\r]*\""(\w+)\"",[\s\n\r]*\""null\""[\s\n\r]*\]";
-            var fixedSchema = Regex.Replace(schema, replaceNullableTypesPattern, "\"type\": \"$1\"");
+            var fixedNullableTypesSchema = Regex.Replace(schema, replaceNullableTypesPattern, "\"type\": \"$1\"");
+            var fixedSchema = FixInnerDefinitionReferences(fixedNullableTypesSchema, key);
             SchemaCache.Cache[key] = JObject.Parse(fixedSchema);
 
             return key;
+        }
+
+        private string FixInnerDefinitionReferences(string jsonSchema, string parentDefinitionKey)
+        {
+            var jObject = JObject.Parse(jsonSchema);
+            foreach (var modelShemaToken in jObject)
+            {
+                if (modelShemaToken.Key == SwaggerConstants.TypePropertiesKey)
+                {
+                    var propertiesObject = modelShemaToken.Value as JObject;
+                    if (propertiesObject == null) continue;
+                    foreach (var propertyToken in propertiesObject)
+                    {
+                        var propertyObject = propertyToken.Value as JObject;
+                        if (propertyObject == null) continue;
+                        foreach (var modelReference in propertyObject)
+                        {
+                            if (modelReference.Key != SwaggerConstants.SchemaReferenceKey) continue;
+                            var currentReference = modelReference.Value.ToString();
+                            var updatedReference = currentReference.Replace("#/", $"#/definitions/{parentDefinitionKey}/");
+                            modelReference.Value.Replace(new JValue(updatedReference));
+                        }
+                    }
+                }
+            }
+
+            return jObject.ToString();
         }
 
         private static IJsonSchemaGenerator GetDefaultJsonSchemaGenerator()

@@ -62,6 +62,7 @@
     <Compile Include="Core\SwaggerRouteMetadata.cs" />
     <Compile Include="Fluent\SwaggerEndpointInfoBuilder.cs" />
     <Compile Include="Fluent\SwaggerRouteMetadataExtensions.cs" />
+    <Compile Include="Model\SwaggerConstants.cs" />
     <Compile Include="Model\SwaggerApiInfo.cs" />
     <Compile Include="Model\SwaggerContactInfo.cs" />
     <Compile Include="Model\SwaggerEndpointInfo.cs" />
