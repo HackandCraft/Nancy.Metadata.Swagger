@@ -134,11 +134,15 @@ namespace Nancy.Metadata.Swagger.Fluent
                 return key;
             }
             
-            var schema = NJsonSchema.JsonSchema4.FromType(type, new NJsonSchema.Generation.JsonSchemaGeneratorSettings{
+            var task = NJsonSchema.JsonSchema4.FromTypeAsync(type, new NJsonSchema.Generation.JsonSchemaGeneratorSettings{
                 NullHandling = NJsonSchema.NullHandling.Swagger,
                 TypeNameGenerator = new TypeNameGenerator(),
                 SchemaNameGenerator = new TypeNameGenerator()
             });
+
+            task.Wait();
+
+            var schema = task.Result;
             
             SchemaCache.Cache[key] = schema;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NJsonSchema;
 
 namespace Nancy.Metadata.Swagger.Core
 {
@@ -14,6 +15,11 @@ namespace Nancy.Metadata.Swagger.Core
         }
 
         public string Generate(NJsonSchema.JsonSchema4 schema, string typeNameHint)
+        {
+            return typeNameHint;
+        }
+
+        public string Generate(JsonSchema4 schema, string typeNameHint, ICollection<string> reservedTypeNames)
         {
             return typeNameHint;
         }
