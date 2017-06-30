@@ -5,6 +5,6 @@ namespace Nancy.Metadata.Swagger.Core
 {
     public static class SchemaCache
     {
-         public static Dictionary<string, JSchema> Cache = new Dictionary<string, JSchema>();
+         public static Dictionary<string, NJsonSchema.JsonSchema4> Cache = new Dictionary<string, NJsonSchema.JsonSchema4>();
     }
 }
