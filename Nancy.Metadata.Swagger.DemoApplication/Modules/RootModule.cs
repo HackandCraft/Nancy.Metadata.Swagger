@@ -13,7 +13,7 @@ namespace Nancy.Metadata.Swagger.DemoApplication.Modules
             Get["SimpleRequest", "/hello"] = r => HelloWorld();
             Get["SimpleRequestWithParameter", "/hello/{name}"] = r => Hello(r.name);
 
-            Post["SimplePostRequst", "/hello"] = r => HelloPost();
+            Post["SimplePostRequest", "/hello"] = r => HelloPost();
             Post["PostRequestWithModel", "/hello/model"] = r => HelloModel();
 
             Post["PostRequestWithNestedModel", "/hello/nestedmodel"] = r => HelloNestedModel();
@@ -25,7 +25,7 @@ namespace Nancy.Metadata.Swagger.DemoApplication.Modules
 
             SimpleResponseModel response = new SimpleResponseModel
             {
-                Hello = string.Format("Hello, {0}. We got your name from nested obejct", model.SimpleModel.Name)
+                Hello = string.Format("Hello, {0}. We got your name from nested object", model.SimpleModel.Name)
             };
 
             return Response.AsJson(response);
@@ -79,29 +79,29 @@ namespace Nancy.Metadata.Swagger.DemoApplication.Modules
         public RootMetadataModule()
         {
             Describe["SimpleRequest"] = desc => new SwaggerRouteMetadata(desc)
-                .With(i => i.WithResponseModel("200", typeof(SimpleResponseModel), "Sample response")
-                            .WithSummary("Simple GET example"));
+                .With(i => SwaggerEndpointInfoBuilder.NewEndpointInfo(i).WithResponseModel("200", typeof(SimpleResponseModel), "Sample response")
+                            .WithSummary("Simple GET example").Build());
 
             Describe["SimpleRequestWithParameter"] = desc => new SwaggerRouteMetadata(desc)
-                .With(i => i.WithResponseModel("200", typeof(SimpleResponseModel), "Sample response")
+                .With(i => SwaggerEndpointInfoBuilder.NewEndpointInfo(i).WithResponseModel("200", typeof(SimpleResponseModel), "Sample response")
                             .WithRequestParameter("name")
-                            .WithSummary("Simple GET with parameters"));
+                            .WithSummary("Simple GET with parameters").Build());
 
-            Describe["SimplePostRequst"] = desc => new SwaggerRouteMetadata(desc)
-                .With(info => info.WithResponseModel("200", typeof(SimpleResponseModel), "Sample response")
-                    .WithSummary("Simple POST example"));
+            Describe["SimplePostRequest"] = desc => new SwaggerRouteMetadata(desc)
+                .With(info => SwaggerEndpointInfoBuilder.NewEndpointInfo(info).WithResponseModel("200", typeof(SimpleResponseModel), "Sample response")
+                    .WithSummary("Simple POST example").Build());
 
             Describe["PostRequestWithModel"] = desc => new SwaggerRouteMetadata(desc)
-                .With(info => info.WithResponseModel("200", typeof(SimpleResponseModel))
+                .With(info => SwaggerEndpointInfoBuilder.NewEndpointInfo(info).WithResponseModel("200", typeof(SimpleResponseModel))
                     .WithResponse("400", "Bad request")
                     .WithSummary("Simple POST example with request model")
-                    .WithRequestModel(typeof(SimpleRequestModel)));
+                    .WithRequestModel(typeof(SimpleRequestModel)).Build());
 
             Describe["PostRequestWithNestedModel"] = desc => new SwaggerRouteMetadata(desc)
-                .With(info => info.WithResponseModel("200", typeof(SimpleResponseModel))
+                .With(info => SwaggerEndpointInfoBuilder.NewEndpointInfo(info).WithResponseModel("200", typeof(SimpleResponseModel))
                     .WithResponse("400", "Bad request")
                     .WithSummary("Simple POST example with nested request model")
-                    .WithRequestModel(typeof(NestedRequestModel)));
+                    .WithRequestModel(typeof(NestedRequestModel)).Build());
         }
     }
 }
