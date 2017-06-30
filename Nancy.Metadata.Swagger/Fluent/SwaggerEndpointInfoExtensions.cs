@@ -10,6 +10,20 @@ namespace Nancy.Metadata.Swagger.Fluent
 {
     public static class SwaggerEndpointInfoExtensions
     {
+        public static SwaggerEndpointInfo WithProduces(this SwaggerEndpointInfo endpointInfo, params string[] contentTypes)
+        {
+            endpointInfo.Produces = contentTypes.Length > 0 ? contentTypes : null;
+
+            return endpointInfo;
+        }
+
+        public static SwaggerEndpointInfo WithConsumes(this SwaggerEndpointInfo endpointInfo, params string[] contentTypes)
+        {
+            endpointInfo.Consumes = contentTypes.Length > 0 ? contentTypes : null;
+
+            return endpointInfo;
+        }
+
         public static SwaggerEndpointInfo WithResponseModel(this SwaggerEndpointInfo endpointInfo, string statusCode, Type modelType, string description = null)
         {
             if (endpointInfo.ResponseInfos == null)
