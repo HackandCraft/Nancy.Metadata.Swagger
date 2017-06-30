@@ -5,6 +5,7 @@ using Nancy.Metadata.Swagger.Core;
 using Nancy.Metadata.Swagger.Model;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Schema.Generation;
+using System.Linq;
 
 namespace Nancy.Metadata.Swagger.Fluent
 {
@@ -81,6 +82,20 @@ namespace Nancy.Metadata.Swagger.Fluent
             });
 
             return endpointInfo;
+        }
+
+        public static SwaggerEndpointInfo WithTags(this SwaggerEndpointInfo info, IEnumerable<string> tags)
+        {
+            info.Tags = tags.ToArray();
+
+            return info;
+        }
+
+        public static SwaggerEndpointInfo WithMethodName(this SwaggerEndpointInfo info, string name)
+        {
+            info.MethodName = name;
+
+            return info;
         }
 
         public static SwaggerEndpointInfo WithDescription(this SwaggerEndpointInfo endpointInfo, string description, params string[] tags)
