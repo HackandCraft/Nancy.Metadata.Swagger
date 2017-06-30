@@ -62,6 +62,30 @@ You also need to create one additional module that will return you json document
 Now you are able to add swagger UI (you can download it from http://swagger.io/swagger-ui/) and point it to your docs module.
 In index.html file you can set default url where ui should get json documentation file.
 
+## Using a different Json Schema
+
+Schema generation can be changed from the default strategy of using NewtonSoft.JsonSchema to any other type, by implementing `ISchemaGenerationStrategy`
+and calling `Nancy.Metadata.Swagger.SchemaGeneration.SchemaGenerator.Use(ISchemaGenerationStrategy)`.
+
+The following example describes using NJsonSchema for schema generation:
+
+### Define the strategy
+```
+class NJsonSchemaGenerationStrategy : ISchemaGenerationStrategy
+{
+    public object GenerateSchema(Type type)
+    {
+        return JsonSchema4.FromType(type);
+    }   
+}
+```
+
+### Configure Nancy.Metadata.Swagger to use the strategy
+```
+SchemaGenerator.Use(new NJsonSchemaGenerationStrategy())
+```
+This should be done before Nancy configuration
+
 ## Configuring Json.NET schema license
 
 Json.NET schema is limited with 10 schema generations per hour, so if you have more objects you need to configure license for it by:
