@@ -39,6 +39,16 @@ namespace Nancy.Metadata.Swagger.Fluent
             return endpointInfo;
         }
 
+        public static SwaggerEndpointInfo WithTags(this SwaggerEndpointInfo endpointInfo, params string[] tags)
+        {
+            if (endpointInfo.Tags == null)
+            {
+                endpointInfo.Tags = tags;
+            }
+
+            return endpointInfo;
+        }
+
         public static SwaggerEndpointInfo WithRequestParameter(this SwaggerEndpointInfo endpointInfo, string name,
             string type = "string", string format = null, bool required = true, string description = null,
             string loc = "path")
