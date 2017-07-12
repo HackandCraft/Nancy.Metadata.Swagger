@@ -204,26 +204,51 @@ namespace Nancy.Metadata.Swagger.Fluent
             var jObject = JObject.Parse(jsonSchema);
             foreach (var modelShemaToken in jObject)
             {
-                if (modelShemaToken.Key == SwaggerConstants.TypePropertiesKey)
+                if (modelShemaToken.Key.Equals(SwaggerConstants.TypePropertiesKey, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var propertiesObject = modelShemaToken.Value as JObject;
-                    if (propertiesObject == null) continue;
-                    foreach (var propertyToken in propertiesObject)
-                    {
-                        var propertyObject = propertyToken.Value as JObject;
-                        if (propertyObject == null) continue;
-                        foreach (var modelReference in propertyObject)
-                        {
-                            if (modelReference.Key != SwaggerConstants.SchemaReferenceKey) continue;
-                            var currentReference = modelReference.Value.ToString();
-                            var updatedReference = currentReference.Replace("#/", $"#/definitions/{parentDefinitionKey}/");
-                            modelReference.Value.Replace(new JValue(updatedReference));
-                        }
-                    }
+                    FixSchemaReferenceForComplexProperty(parentDefinitionKey, modelShemaToken.Value as JObject);
+                }
+                if (modelShemaToken.Key.Equals(SwaggerConstants.AllOfKey, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    FixSchemaReferenceForBaseTypeDefinition(parentDefinitionKey, modelShemaToken.Value as JArray);
                 }
             }
 
             return jObject.ToString();
+        }
+
+        private void FixSchemaReferenceForBaseTypeDefinition(string parentDefinitionKey, JArray baseTypeDefinitions)
+        {
+            if (baseTypeDefinitions == null) return;
+            foreach (var baseTypeDefinitionItem in baseTypeDefinitions)
+            {
+                var baseTypeDefinition = baseTypeDefinitionItem as JObject;
+                var schemaReferenceProperty = baseTypeDefinition?.Property(SwaggerConstants.SchemaReferenceKey);
+                if (schemaReferenceProperty == null) continue;
+                UpdateSchemaReference(parentDefinitionKey, schemaReferenceProperty.Value);
+            }
+        }
+
+        private static void FixSchemaReferenceForComplexProperty(string parentDefinitionKey, JObject propertiesObject)
+        {
+            if (propertiesObject == null) return;
+            foreach (var propertyToken in propertiesObject)
+            {
+                var propertyObject = propertyToken.Value as JObject;
+                if (propertyObject == null) continue;
+                foreach (var modelReference in propertyObject)
+                {
+                    if (modelReference.Key != SwaggerConstants.SchemaReferenceKey) continue;
+                    UpdateSchemaReference(parentDefinitionKey, modelReference.Value);
+                }
+            }
+        }
+
+        private static void UpdateSchemaReference(string parentDefinitionKey, JToken modelReferenceValue)
+        {
+            var currentReference = modelReferenceValue.ToString();
+            var updatedReference = currentReference.Replace("#/", $"#/definitions/{parentDefinitionKey}/");
+            modelReferenceValue.Replace(new JValue(updatedReference));
         }
 
         private static IJsonSchemaGenerator GetDefaultJsonSchemaGenerator()
