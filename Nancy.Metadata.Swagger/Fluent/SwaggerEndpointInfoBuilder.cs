@@ -202,44 +202,37 @@ namespace Nancy.Metadata.Swagger.Fluent
         private string FixInnerDefinitionReferences(string jsonSchema, string parentDefinitionKey)
         {
             var jObject = JObject.Parse(jsonSchema);
-            foreach (var modelShemaToken in jObject)
-            {
-                if (modelShemaToken.Key.Equals(SwaggerConstants.TypePropertiesKey, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    FixSchemaReferenceForComplexProperty(parentDefinitionKey, modelShemaToken.Value as JObject);
-                }
-                if (modelShemaToken.Key.Equals(SwaggerConstants.AllOfKey, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    FixSchemaReferenceForBaseTypeDefinition(parentDefinitionKey, modelShemaToken.Value as JArray);
-                }
-            }
-
+            FixAllReferences(jObject, parentDefinitionKey);
             return jObject.ToString();
         }
 
-        private void FixSchemaReferenceForBaseTypeDefinition(string parentDefinitionKey, JArray baseTypeDefinitions)
+        private void FixAllReferences(JObject jObject, string parentDefinitionKey)
         {
-            if (baseTypeDefinitions == null) return;
-            foreach (var baseTypeDefinitionItem in baseTypeDefinitions)
+            foreach (var token in jObject)
             {
-                var baseTypeDefinition = baseTypeDefinitionItem as JObject;
-                var schemaReferenceProperty = baseTypeDefinition?.Property(SwaggerConstants.SchemaReferenceKey);
-                if (schemaReferenceProperty == null) continue;
-                UpdateSchemaReference(parentDefinitionKey, schemaReferenceProperty.Value);
-            }
-        }
-
-        private static void FixSchemaReferenceForComplexProperty(string parentDefinitionKey, JObject propertiesObject)
-        {
-            if (propertiesObject == null) return;
-            foreach (var propertyToken in propertiesObject)
-            {
-                var propertyObject = propertyToken.Value as JObject;
-                if (propertyObject == null) continue;
-                foreach (var modelReference in propertyObject)
+                if (token.Key.Equals(SwaggerConstants.SchemaReferenceKey, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (modelReference.Key != SwaggerConstants.SchemaReferenceKey) continue;
-                    UpdateSchemaReference(parentDefinitionKey, modelReference.Value);
+                    UpdateSchemaReference(parentDefinitionKey, token.Value);
+                }
+                else
+                {
+                    var tokenObject = token.Value as JObject;
+                    if (tokenObject != null)
+                    {
+                        FixAllReferences(tokenObject, parentDefinitionKey);
+                    }
+                    var tokenArray = token.Value as JArray;
+                    if (tokenArray != null)
+                    {
+                        foreach (var elementToken in tokenArray)
+                        {
+                            var elementObject = elementToken as JObject;
+                            if (elementObject != null)
+                            {
+                                FixAllReferences(elementObject, parentDefinitionKey);
+                            }
+                        }
+                    }
                 }
             }
         }
