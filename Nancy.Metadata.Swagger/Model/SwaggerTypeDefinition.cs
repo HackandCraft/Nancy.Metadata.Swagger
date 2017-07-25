@@ -14,7 +14,7 @@ namespace Nancy.Metadata.Swagger.Model
         [JsonProperty("required")]
         public List<string> RequiredProperties { get; set; }
 
-        [JsonProperty("properties")]
+        [JsonProperty(SwaggerConstants.TypePropertiesKey)]
         public Dictionary<string, SwaggerTypeDefinition> Properties { get; set; }
     }
 }

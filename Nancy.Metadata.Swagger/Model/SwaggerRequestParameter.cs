@@ -28,7 +28,7 @@ namespace Nancy.Metadata.Swagger.Model
 
     public class SchemaRef
     {
-        [JsonProperty("$ref")]
+        [JsonProperty(SwaggerConstants.SchemaReferenceKey)]
         public string Ref { get; set; }
     }
 }
