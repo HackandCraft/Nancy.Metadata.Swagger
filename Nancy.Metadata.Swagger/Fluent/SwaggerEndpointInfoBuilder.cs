@@ -210,7 +210,7 @@ namespace Nancy.Metadata.Swagger.Fluent
         {
             foreach (var token in jObject)
             {
-                if (token.Key.Equals(SwaggerConstants.SchemaReferenceKey, StringComparison.InvariantCultureIgnoreCase))
+                if (token.Key.Equals(SwaggerConstants.SchemaReferenceKey, StringComparison.CurrentCultureIgnoreCase))
                 {
                     UpdateSchemaReference(parentDefinitionKey, token.Value);
                 }
