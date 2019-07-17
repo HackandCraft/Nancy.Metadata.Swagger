@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Schema;
+using Newtonsoft.Json.Linq;
 
 namespace Nancy.Metadata.Swagger.Model
 {
@@ -24,7 +24,7 @@ namespace Nancy.Metadata.Swagger.Model
         [JsonProperty("paths")]
         public Dictionary<string, Dictionary<string, SwaggerEndpointInfo>> PathInfos { get; set; }
 
-        [JsonProperty("definitions")]
-        public Dictionary<string, JSchema> ModelDefinitions { get; set; }
+        [JsonProperty(SwaggerConstants.ModelDefinitionsKey)]
+        public Dictionary<string, JObject> ModelDefinitions { get; set; }
     }
 }
