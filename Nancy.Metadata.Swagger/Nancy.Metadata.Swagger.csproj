@@ -1,13 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net452</TargetFrameworks>
+    <PackageId>Nancy.Metadata.Swagger.PR20</PackageId>
+    <Version>1.1.3-netcore</Version>
+    <Authors>HackandCraft</Authors>
+    <Product />
+    <PackageReleaseNotes>Forked from https://github.com/LaoR-UA/Nancy.Metadata.Swagger
+Upgrade "Newtonsoft.Json" for supporting .Net Core &gt;= 2.1.0 libraries</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/HackandCraft/Nancy.Metadata.Swagger/pull/20</PackageProjectUrl>
+    <Copyright>Copyright ©  2015</Copyright>
+    <Description>Forked from Nancy.Metadata.Swagger</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Nancy" Version="2.0.0-clinteastwood" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-    <PackageReference Include="Newtonsoft.Json.Schema" Version="2.0.3" />
+    <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.6" />
   </ItemGroup>
 
 </Project>
