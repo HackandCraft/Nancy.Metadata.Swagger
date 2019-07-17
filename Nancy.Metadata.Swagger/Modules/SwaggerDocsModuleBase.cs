@@ -3,7 +3,7 @@ using Nancy.Metadata.Swagger.Core;
 using Nancy.Metadata.Swagger.Model;
 using Nancy.Routing;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Schema;
+using Newtonsoft.Json.Linq;
 
 namespace Nancy.Metadata.Swagger.Modules
 {
@@ -34,7 +34,7 @@ namespace Nancy.Metadata.Swagger.Modules
             this.apiBaseUrl = apiBaseUrl;
             this.schemes = schemes;
 
-            Get["/"] = r => GetDocumentation();
+            Get("/", r => GetDocumentation());
         }
 
         public virtual Response GetDocumentation()
@@ -90,7 +90,7 @@ namespace Nancy.Metadata.Swagger.Modules
                 // add definitions
                 if (swaggerSpecification.ModelDefinitions == null)
                 {
-                    swaggerSpecification.ModelDefinitions = new Dictionary<string, JSchema>();
+                    swaggerSpecification.ModelDefinitions = new Dictionary<string, JObject>();
                 }
 
                 foreach (string key in SchemaCache.Cache.Keys)
