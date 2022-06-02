@@ -9,7 +9,9 @@ namespace Nancy.Metadata.Swagger.DemoApplication
         {
             string url = "http://localhost:5000";
 
-            NancyHost host = new NancyHost(new Uri(url));
+            var hostConfiguration = new HostConfiguration();
+            hostConfiguration.UrlReservations.CreateAutomatically = true;
+            NancyHost host = new NancyHost(new Uri(url), new DefaultNancyBootstrapper(), hostConfiguration);
             host.Start();
 
             Console.WriteLine("Nancy host is listening at {0}", url);

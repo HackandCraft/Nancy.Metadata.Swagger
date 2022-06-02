@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Nancy.Metadata.Swagger.DemoApplication</RootNamespace>
     <AssemblyName>Nancy.Metadata.Swagger.DemoApplication</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -38,24 +38,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Nancy, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nancy.1.2.0\lib\net40\Nancy.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Nancy, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.2.0.0-clinteastwood\lib\net452\Nancy.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.Hosting.Self, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nancy.Hosting.Self.1.2.0\lib\net40\Nancy.Hosting.Self.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Nancy.Hosting.Self, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Hosting.Self.2.0.0-clinteastwood\lib\net452\Nancy.Hosting.Self.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.Metadata.Modules, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nancy.Metadata.Modules.1.2.0\lib\net40\Nancy.Metadata.Modules.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Nancy.Metadata.Modules, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Metadata.Modules.2.0.0-clinteastwood\lib\net452\Nancy.Metadata.Modules.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.Serialization.JsonNet, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nancy.Serialization.JsonNet.1.2.0\lib\net40\Nancy.Serialization.JsonNet.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Nancy.Serialization.JsonNet, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Serialization.JsonNet.2.0.0-clinteastwood\lib\net452\Nancy.Serialization.JsonNet.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -112,7 +108,9 @@
       <Name>Nancy.Metadata.Swagger</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\packages\AsyncUsageAnalyzers.1.0.0-alpha003\analyzers\dotnet\AsyncUsageAnalyzers.dll" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\print.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
